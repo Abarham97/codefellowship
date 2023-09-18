@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="app.css">
+    <title>Login Page</title>
+</head>
+<body>
+<div class="container">
+    <h1>Welcome To our App</h1>
+    <div class="form-container">
+        <h2>Create a New Post</h2>
+        <form method="POST" action="/createpost">
+            <label for="textcontent">Post Content:</label><br>
+            <textarea id="textcontent" name="textcontent" rows="4" required></textarea><br>
+            <input type="submit" value="Create Post">
+        </form>
+    </div>
+    <div class="post-container">
+        <h2>Posts</h2>
+        <div th:each="post :${posts}" class="post">
+            <p th:text="${post.textcontent}"></p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

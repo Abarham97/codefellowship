@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>splash</title>
+    <link rel="stylesheet" href="../css/hom.css">
+</head>
+<body>
+<div class="splash-container">
+    <h1>Welcome to Our Application</h1>
+    <h1 th:if="${username != null}" th:text="${'Current user: ' + username + ' and created at ' + createdDate}"></h1>
+
+    <a th:if="!${username}" href="/login" class="btn">Login Page</a>
+    <a  th:if="!${username}" href="/singup" class="btn">Sign Up Page</a>
+    <br>
+    <a th:if="${username}" href="/logout">Log Out</a>
+</div>
+</body>
+</html>
