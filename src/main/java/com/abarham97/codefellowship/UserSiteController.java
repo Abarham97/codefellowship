@@ -64,17 +64,7 @@ public String getLoginPage(){
 
 
 
-//    @PostMapping("/login")
-//    public RedirectView loginuser(String username, String passwrod)
-//    {
-//        UserSite DBuser= UserSiteRepositry.findByUserName(username);
-//
-//        if((DBuser==null)|| (!BCrypt.checkpw(passwrod,DBuser.getPassword())))
-//        {
-//            return new RedirectView("login");
-//        }
-//        return new RedirectView("App");
-//    }
+
     @PostMapping("/signup")
     public RedirectView createUser(String username, String password,String dateOfBirth,String  lastname,String bio, String firstname){
        UserSite userSite=new UserSite();
