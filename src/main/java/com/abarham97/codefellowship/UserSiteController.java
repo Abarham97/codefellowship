@@ -1,5 +1,6 @@
 package com.abarham97.codefellowship;
 
+import com.abarham97.codefellowship.Repositry.PostRepositry;
 import com.abarham97.codefellowship.Repositry.UserSiteRepositry;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,12 +9,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class UserSiteController {
@@ -27,6 +32,8 @@ public class UserSiteController {
     private AuthenticationManager authenticationManager;
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
+    @Autowired
+    PostRepositry PostRepositry;
 
 
 
@@ -39,10 +46,14 @@ public class UserSiteController {
             m.addAttribute("username", username);
             m.addAttribute("firstname", usersite.getFirstname());
             m.addAttribute("lastname", usersite.getLastname());
+            m.addAttribute("dateOfBirth", usersite.getDateOfBirth());
+            m.addAttribute("bio", usersite.getBio());
 
         }
 
-        return "Home";
+            return "Home";
+
+
     }
 @GetMapping("/login")
 public String getLoginPage(){
@@ -92,5 +103,55 @@ public String getLoginPage(){
             e.printStackTrace();
         }
     }
+    @GetMapping("/users/{id}")
+    public String viewUserProfile(@PathVariable Long id, Model model) {
+
+        UserSite usersite = UserSiteRepositry.findById(id).orElse(null);
+
+        if (usersite != null) {
+            model.addAttribute("usersite", usersite);
+            return "user-profile";
+        } else {
+
+            return "/";
+        }
+    }
+    @GetMapping("/profile")
+    public String userProfile(Principal principal, Model model) {
+        String username = principal.getName();
+        UserSite userSite = UserSiteRepositry.findByUserName(username);
+
+        if (userSite != null) {
+            model.addAttribute("username", username);
+            model.addAttribute("firstname", userSite.getFirstname());
+            model.addAttribute("lastname", userSite.getLastname());
+            model.addAttribute("dateOfBirth", userSite.getDateOfBirth());
+            model.addAttribute("bio", userSite.getBio());
+
+
+            List<Post> userPosts = PostRepositry.findAllByUser(userSite);
+            model.addAttribute("userPosts", userPosts);
+
+            return "profile";
+        } else {
+            return "Home";
+        }
+    }
+    @PostMapping("/create-post")
+    public RedirectView createPost(String body, Principal principal) {
+        UserSite loggedInUser = UserSiteRepositry.findByUserName(principal.getName());
+
+
+        Post post = new Post(body, new Date());
+        post.setUser(loggedInUser);
+
+
+        PostRepositry.save(post);
+
+        return new RedirectView("/profile");
+    }
+
+
+
 
 }

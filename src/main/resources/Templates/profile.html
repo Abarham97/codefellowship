@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/profile.css">
+    <title>User Profile</title>
+</head>
+<body>
+<header>
+    <h1>User Profile</h1>
+</header>
+<main>
+    <section class="user-info">
+        <h2>User Information</h2>
+        <div class="profile-picture">
+            <img src="https://media.istockphoto.com/id/522855255/vector/male-profile-flat-blue-simple-icon-with-long-shadow.jpg?s=612x612&w=0&k=20&c=EQa9pV1fZEGfGCW_aEK5X_Gyob8YuRcOYCYZeuBzztM=" alt="Profile Picture" width="100px">
+        </div>
+        <div class="user-details">
+            <p><strong>Username:</strong> <span th:text="${username}">[Username]</span></p>
+            <p><strong>FirstName:</strong> <span th:text="${firstname}">[Firstname]</span></p>
+            <p><strong>LastName:</strong> <span th:text="${lastname}">[Lastname]</span></p>
+            <p><strong>DateOfBirth:</strong> <span th:text="${dateOfBirth}">[DateOfBirth]</span></p>
+            <p><strong>Bio:</strong> <span th:text="${bio}">[Bio]</span></p>
+            <a th:if="${username}" href="/perform_logout">Log Out</a>
+            <a th:if="${username}" href="/posts">Posts</a>
+        </div>
+    </section>
+    <section class="create-post">
+        <h2>Create a Post</h2>
+        <form action="/create-post" method="post">
+            <textarea name="body" rows="4" cols="50" placeholder="Write your post here"></textarea>
+            <button type="submit">Create Post</button>
+        </form>
+    </section>
+
+    <section class="user-posts">
+        <h2>User Posts</h2>
+        <ul th:each="post : ${userPosts}">
+
+            <li th:text="${post.body}">[Post Content]</li>
+            <li th:text="${#dates.format(post.createdAt, 'yyyy-MM-dd HH:mm:ss')}">[Post Date]</li>
+        </ul>
+    </section>
+</main>
+</body>
+</html>

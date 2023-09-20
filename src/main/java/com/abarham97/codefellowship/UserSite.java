@@ -3,10 +3,10 @@ package com.abarham97.codefellowship;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 public class UserSite implements UserDetails {
@@ -25,6 +25,9 @@ public class UserSite implements UserDetails {
     private String dateOfBirth;
 
     private  String bio;
+    @OneToMany(mappedBy = "user")
+    private List<Post> posts = new ArrayList<>();
+
 
     public UserSite(String userName, String password,String firstname,String lastname ,String dateOfBirth, String bio) {
         this.userName = userName;
@@ -43,8 +46,13 @@ public class UserSite implements UserDetails {
         return null;
     }
 
+    public List<Post> getPosts() {
+        return posts;
+    }
 
-
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
 
     @Override
     public boolean isAccountNonExpired() {

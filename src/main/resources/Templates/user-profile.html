@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/profile.css">
+    <title>User Profile</title>
+</head>
+<body>
+<header>
+    <h1>User Profile</h1>
+</header>
+<main>
+    <section class="user-info">
+        <h2>User Information</h2>
+        <div class="profile-picture">
+            <img src="https://media.istockphoto.com/id/522855255/vector/male-profile-flat-blue-simple-icon-with-long-shadow.jpg?s=612x612&w=0&k=20&c=EQa9pV1fZEGfGCW_aEK5X_Gyob8YuRcOYCYZeuBzztM=" alt="Profile Picture">
+        </div>
+        <div class="user-details">
+            <p><strong>Username:</strong> <span th:text="${usersite.username}">[Username]</span></p>
+            <p><strong>First Name:</strong> <span th:text="${usersite.firstname}">[First Name]</span></p>
+            <p><strong>Last Name:</strong> <span th:text="${usersite.lastname}">[Last Name]</span></p>
+           <p><strong>DateOfbirth:</strong> <span th:text="${usersite.dateOfBirth}">[dateOfBirth]</span></p>
+            <p><strong>Bio:</strong> <span th:text="${usersite.bio}">[bio]</span></p>
+            <a th:if="${username}" href="/posts">Posts</a>
+        </div>
+    </section>
+</main>
+</body>
+</html>
