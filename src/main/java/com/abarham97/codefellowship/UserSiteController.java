@@ -68,6 +68,7 @@ public String getLoginPage(){
     @PostMapping("/signup")
     public RedirectView createUser(String username, String password,String dateOfBirth,String  lastname,String bio, String firstname){
        UserSite userSite=new UserSite();
+
        userSite.setUserName(username);
        userSite.setDateOfBirth(dateOfBirth);
         userSite.setBio(bio);
