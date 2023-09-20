@@ -1,5 +1,5 @@
 package com.abarham97.codefellowship;
-
+import com.abarham97.codefellowship.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

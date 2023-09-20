@@ -35,10 +35,10 @@ public class UserSiteController {
         if(p !=null)
         {
             String username = p.getName();
-            UserSite ussersite=UserSiteRepositry.findByUserName(username);
+            UserSite usersite=UserSiteRepositry.findByUserName(username);
             m.addAttribute("username", username);
-            m.addAttribute("firstname", ussersite.getFirstname());
-            m.addAttribute("lastname", ussersite.getLastname());
+            m.addAttribute("firstname", usersite.getFirstname());
+            m.addAttribute("lastname", usersite.getLastname());
 
         }
 
@@ -65,7 +65,7 @@ public String getLoginPage(){
 
 
 
-    @PostMapping("/signup")
+    @PostMapping("/singup")
     public RedirectView createUser(String username, String password,String dateOfBirth,String  lastname,String bio, String firstname){
        UserSite userSite=new UserSite();
 
