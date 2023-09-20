@@ -21,9 +21,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             System.out.println("User not found " + username);
             throw new UsernameNotFoundException("user" + username + " was not found in the db");
         }
-        System.out.println("Found User: " + usersite.getUserName());
+        System.out.println("Found User: " + usersite.getUsername());
 
-     return (UserDetails) usersite;
+     return  usersite;
 
 
 
