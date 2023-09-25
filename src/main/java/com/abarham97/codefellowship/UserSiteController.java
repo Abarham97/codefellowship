@@ -11,14 +11,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 public class UserSiteController {
@@ -103,18 +102,28 @@ public String getLoginPage(){
             e.printStackTrace();
         }
     }
-    @GetMapping("/users/{id}")
-    public String viewUserProfile(@PathVariable Long id, Model model) {
-
+    @GetMapping("/users-id")
+    public String viewUserProfile(@RequestParam (name="id") Long id, Model model,Principal principal) {
+        String loggedInUsername = principal.getName();
         UserSite usersite = UserSiteRepositry.findById(id).orElse(null);
 
         if (usersite != null) {
             model.addAttribute("usersite", usersite);
+            String toLoggedInUser = String.valueOf(loggedInUsername.equals(usersite.getUsername()));
+            model.addAttribute("profileBelongsToLoggedInUser", toLoggedInUser);
             return "user-profile";
         } else {
 
             return "/";
         }
+    }
+    @GetMapping("/allUser")
+    public String viewAllUser(Model model)
+    {
+        List<UserSite> allUsers = UserSiteRepositry.findAll();
+        model.addAttribute("allUsers", allUsers);
+        return "profile";
+
     }
     @GetMapping("/profile")
     public String userProfile(Principal principal, Model model) {
@@ -122,6 +131,12 @@ public String getLoginPage(){
         UserSite userSite = UserSiteRepositry.findByUserName(username);
 
         if (userSite != null) {
+            Set<UserSite> followingUsers = userSite.getFollowing();
+            List<Post> followedUsersPosts = new ArrayList<>();
+            for (UserSite followingUser : followingUsers) {
+                List<Post> userPosts = PostRepositry.findAllByUser(followingUser);
+                followedUsersPosts.addAll(userPosts);
+            }
             model.addAttribute("username", username);
             model.addAttribute("firstname", userSite.getFirstname());
             model.addAttribute("lastname", userSite.getLastname());
@@ -150,6 +165,38 @@ public String getLoginPage(){
 
         return new RedirectView("/profile");
     }
+    @PostMapping("/follow")
+    public RedirectView followUser(@RequestParam Long userId, Principal principal) {
+        UserSite currentUser = UserSiteRepositry.findByUserName(principal.getName());
+        UserSite userToFollow = UserSiteRepositry.findById(userId).orElse(null);
+
+        if (currentUser != null && userToFollow != null) {
+            currentUser.getFollowing().add(userToFollow);
+            UserSiteRepositry.save(currentUser);
+        }
+
+        return new RedirectView("/user-profile" );
+    }
+
+    @GetMapping("/feed")
+    public String viewFeed(Principal principal, Model model) {
+        String username = principal.getName();
+        UserSite userSite = UserSiteRepositry.findByUserName(username);
+
+        if (userSite != null) {
+            Set<UserSite> followingUsers = userSite.getFollowing();
+            List<Post> feedPosts = new ArrayList<>();
+            for (UserSite followingUser : followingUsers) {
+                List<Post> userPosts = PostRepositry.findAllByUser(followingUser);
+                feedPosts.addAll(userPosts);
+            }
+            model.addAttribute("feedPosts", feedPosts);
+            return "feed";
+        } else {
+            return "Home";
+        }
+    }
+
 
 
 

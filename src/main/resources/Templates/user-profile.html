@@ -17,13 +17,19 @@
             <img src="https://media.istockphoto.com/id/522855255/vector/male-profile-flat-blue-simple-icon-with-long-shadow.jpg?s=612x612&w=0&k=20&c=EQa9pV1fZEGfGCW_aEK5X_Gyob8YuRcOYCYZeuBzztM=" alt="Profile Picture">
         </div>
         <div class="user-details">
-            <p><strong>Username:</strong> <span th:text="${usersite.username}">[Username]</span></p>
-            <p><strong>First Name:</strong> <span th:text="${usersite.firstname}">[First Name]</span></p>
-            <p><strong>Last Name:</strong> <span th:text="${usersite.lastname}">[Last Name]</span></p>
-           <p><strong>DateOfbirth:</strong> <span th:text="${usersite.dateOfBirth}">[dateOfBirth]</span></p>
-            <p><strong>Bio:</strong> <span th:text="${usersite.bio}">[bio]</span></p>
+            <p><strong>Username:</strong> <span th:utext="${usersite.username}">[Username]</span></p>
+            <p><strong>First Name:</strong> <span th:utext="${usersite.firstname}">[First Name]</span></p>
+            <p><strong>Last Name:</strong> <span th:utext="${usersite.lastname}">[Last Name]</span></p>
+           <p><strong>DateOfbirth:</strong> <span th:utext="${usersite.dateOfBirth}">[dateOfBirth]</span></p>
+            <p><strong>Bio:</strong> <span th:utext="${usersite.bio}">[bio]</span></p>
             <a th:if="${username}" href="/posts">Posts</a>
         </div>
+    </section>
+    <section class="follow-button">
+        <form action="/follow" method="post">
+            <input type="hidden" name="userId" th:value="${usersite.id}" />
+            <button type="submit">Follow</button>
+        </form>
     </section>
 </main>
 </body>

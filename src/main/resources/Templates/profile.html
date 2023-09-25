@@ -17,13 +17,13 @@
             <img src="https://media.istockphoto.com/id/522855255/vector/male-profile-flat-blue-simple-icon-with-long-shadow.jpg?s=612x612&w=0&k=20&c=EQa9pV1fZEGfGCW_aEK5X_Gyob8YuRcOYCYZeuBzztM=" alt="Profile Picture" width="100px">
         </div>
         <div class="user-details">
-            <p><strong>Username:</strong> <span th:text="${username}">[Username]</span></p>
-            <p><strong>FirstName:</strong> <span th:text="${firstname}">[Firstname]</span></p>
-            <p><strong>LastName:</strong> <span th:text="${lastname}">[Lastname]</span></p>
-            <p><strong>DateOfBirth:</strong> <span th:text="${dateOfBirth}">[DateOfBirth]</span></p>
-            <p><strong>Bio:</strong> <span th:text="${bio}">[Bio]</span></p>
+            <p><strong>Username:</strong> <span th:utext="${username}">[Username]</span></p>
+            <p><strong>FirstName:</strong> <span th:utext="${firstname}">[Firstname]</span></p>
+            <p><strong>LastName:</strong> <span th:utext="${lastname}">[Lastname]</span></p>
+            <p><strong>DateOfBirth:</strong> <span th:utext="${dateOfBirth}">[DateOfBirth]</span></p>
+            <p><strong>Bio:</strong> <span th:utext="${bio}">[Bio]</span></p>
             <a th:if="${username}" href="/perform_logout">Log Out</a>
-            <a th:if="${username}" href="/posts">Posts</a>
+
         </div>
     </section>
     <section class="create-post">
@@ -38,10 +38,29 @@
         <h2>User Posts</h2>
         <ul th:each="post : ${userPosts}">
 
-            <li th:text="${post.body}">[Post Content]</li>
-            <li th:text="${#dates.format(post.createdAt, 'yyyy-MM-dd HH:mm:ss')}">[Post Date]</li>
+            <li th:utext="${post.body}">[Post Content]</li>
+            <li th:utext="${#dates.format(post.createdAt, 'yyyy-MM-dd HH:mm:ss')}">[Post Date]</li>
         </ul>
     </section>
+    <section class="all-users">
+        <h2>All Users</h2>
+        <ul>
+            <li th:each="user : ${allUsers}">
+                <p><strong>User ID:</strong> <span th:text="${user.id}">[ID]</span></p>
+                <p><strong>User Firstname:</strong> <span th:text="${user.firstname}">[firstname]</span></p>
+            </li>
+        </ul>
+    </section>
+    <section class="search-user">
+        <h2>Search for a User</h2>
+        <form action="/users-id" method="get">
+            <input type="text" name="id" placeholder="Enter User ID">
+            <button type="submit">Search</button>
+        </form>
+    </section>
+
+
+
 </main>
 </body>
 </html>

@@ -4,9 +4,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Entity
 public class UserSite implements UserDetails {
@@ -27,6 +25,13 @@ public class UserSite implements UserDetails {
     private  String bio;
     @OneToMany(mappedBy = "user")
     private List<Post> posts = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(
+            name = "user_following",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "following_id")
+    )
+    private Set<UserSite> following ;
 
 
     public UserSite(String userName, String password,String firstname,String lastname ,String dateOfBirth, String bio) {
@@ -131,5 +136,13 @@ public class UserSite implements UserDetails {
 
     public void setBio(String bio) {
         this.bio = bio;
+    }
+
+    public Set<UserSite> getFollowing() {
+        return following;
+    }
+
+    public void setFollowing(Set<UserSite> following) {
+        this.following = following;
     }
 }
