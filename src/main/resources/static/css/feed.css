@@ -1,0 +1,38 @@
+/* styles.css */
+
+/* Style the page header */
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Style the post container */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    background-color: #f9f9f9;
+}
+
+/* Style the post text */
+p {
+    font-size: 16px;
+    margin: 0;
+}
+
+/* Style the user profile link */
+a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+}
+
+/* Hover effect on user profile link */
+a:hover {
+    text-decoration: underline;
+}

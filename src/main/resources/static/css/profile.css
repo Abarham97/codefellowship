@@ -6,12 +6,18 @@ header {
     padding: 10px 0;
 }
 
+/* Style the main content area */
+main {
+    margin: 20px;
+}
+
 /* Style the user info section */
 .user-info {
     display: flex;
     justify-content: space-between;
-    margin: 20px;
+    margin-bottom: 20px;
     padding: 20px;
+    background-color: #f0f0f0;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
@@ -27,8 +33,9 @@ header {
 
 /* Style the create post section */
 .create-post {
-    margin: 20px;
+    margin-bottom: 20px;
     padding: 20px;
+    background-color: #f0f0f0;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
@@ -37,14 +44,14 @@ header {
     font-size: 24px;
 }
 
-textarea {
+.create-post textarea {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
-button {
+.create-post button {
     background-color: #333;
     color: white;
     padding: 10px 20px;
@@ -55,8 +62,9 @@ button {
 
 /* Style the user posts section */
 .user-posts {
-    margin: 20px;
+    margin-bottom: 20px;
     padding: 20px;
+    background-color: #f0f0f0;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
@@ -72,4 +80,45 @@ ul {
 
 ul li {
     margin-bottom: 10px;
+}
+
+/* Style the All Users section */
+.all-users {
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.all-users h2 {
+    font-size: 24px;
+}
+
+/* Style the Search User section */
+.search-user {
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.search-user h2 {
+    font-size: 24px;
+}
+
+/* Style the form button */
+form button {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Style the profile picture */
+.profile-picture img {
+    border-radius: 50%; /* Makes the image round */
 }
